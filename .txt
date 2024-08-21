@@ -1,0 +1,93 @@
+// cart.php Date :- 17-08-2024
+ <!-- <?php while ($row = $wish_res->fetch_assoc()) {
+                                                $img = explode(",", $row["images"]);
+                                          ?>
+                                          <tr class="position-relative" data-id="<?php echo $row['id']; ?>" data-price="<?php echo $row['product_selling_price']; ?>">
+                                                <th scope="row" class="pe-5 ps-8 py-7 shop-product">
+                                                      <div class="d-flex align-items-center">
+                                                            <div class="ms-6 me-7">
+                                                                  <img src="./assets/images/products/<?php echo $img[0]; ?>" class="lazy-image" width="75" height="100" alt="Natural Coconut Cleansing Oil">
+                                                            </div>
+                                                            <div>
+                                                                  <p class="fw-500 mb-1 text-body-emphasis"><?php echo $row["name"]; ?></p>
+                                                                  <p class="card-text">
+                                                                        <span class="fs-13px fw-500 text-decoration-line-through pe-3">$<?php echo $row["product_price"]; ?></span>
+                                                                        <span class="fs-15px fw-bold text-body-emphasis">$<?php echo $row["product_selling_price"]; ?></span>
+                                                                  </p>
+                                                            </div>
+                                                      </div>
+                                                </th>
+                                                <td class="align-middle">
+                                                      <div class="input-group position-relative shop-quantity">
+                                                            <a href="#" class="shop-down position-absolute z-index-2" data-action="decrease"><i class="far fa-minus"></i></a>
+                                                            <input type="number" class="form-control form-control-sm px-10 py-4 fs-6 text-center border-0" value="<?php echo $row["quantity"]; ?>" required readonly>
+                                                            <a href="#" class="shop-up position-absolute z-index-2" data-action="increase"><i class="far fa-plus"></i></a>
+                                                      </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                      <p class="mb-0 text-body-emphasis fw-bold mr-xl-11 total-price">$<?php echo $row["product_selling_price"] * $row["quantity"]; ?></p>
+                                                </td>
+                                                <td class="align-middle text-end pe-8">
+                                                      <button type="submit" name="removepro" value="<?php echo $row["id"]; ?>" class=" border-0 bg-transparent text-secondary">
+                                                            <i class="fa fa-times"></i>
+                                                      </button>
+                                                </td>
+                                          </tr>
+                                    <?php } ?>
+                                    <tr class="position-relative opacity-50">
+                                          <th scope="row" class="pe-5 ps-8 py-7 shop-product">
+                                                <div class="d-flex align-items-center">
+                                                      <div class="ms-6 me-7">
+                                                            <img src="#"
+                                                                  data-src="../assets/images/products/product-04-75x100.jpg"
+                                                                  class="lazy-image" width="75" height="100"
+                                                                  alt="Natural Coconut Cleansing Oil">
+                                                      </div>
+                                                      <div class>
+                                                            <p class="fw-500 mb-1 text-body-emphasis">Cleansing Balm</p>
+                                                            <p class="card-text">
+                                                                  <span
+                                                                        class="fs-13px fw-500 text-decoration-line-through pe-3">$39.00</span>
+                                                                  <span
+                                                                        class="fs-15px fw-bold text-body-emphasis">$29.00</span>
+                                                            </p>
+                                                      </div>
+                                                </div>
+                                                <div class="position-absolute top-0 start-0">
+                                                      <span
+                                                            class="badge rounded-0 text-uppercase fs-14px px-5 py-4 product-stock ls-1 fw-semibold p-0">out
+                                                            of stock</span>
+                                                </div>
+                                          </th>
+                                          <td class="align-middle">
+                                                <div class="input-group position-relative shop-quantity">
+                                                      <a href="#" class="shop-down position-absolute z-index-2"><i
+                                                                  class="far fa-minus"></i></a>
+                                                      <input name="number" type="number"
+                                                            class="form-control form-control-sm px-10 py-4 fs-6 text-center border-0"
+                                                            value="1" required disabled>
+                                                      <a href="#" class="shop-up position-absolute z-index-2"><i
+                                                                  class="far fa-plus"></i>
+                                                      </a>
+                                                </div>
+                                          </td>
+                                          <td class="align-middle">
+                                                <p class="mb-0 text-body-emphasis fw-bold mr-xl-11"></p>
+                                          </td>
+                                          <td class="align-middle text-end pe-8">
+                                                <button type="submit" name="removepro" class=" border-0 bg-transparent text-secondary">
+                                                      <i class="fa fa-times"></i>
+                                                </button>
+                                          </td>
+                                    </tr>
+                                    <tr>
+                                          <td class="pt-5 pb-10 position-relative bg-body ps-0 left">
+                                                <a href="grid-layout.php" title="Countinue Shopping"
+                                                      class="btn btn-outline-dark me-8 text-nowrap my-5">
+                                                      Countinue Shopping
+                                                </a>
+                                          </td>
+                                    </tr> -->
+
+
+// indian rupess :- ₹
