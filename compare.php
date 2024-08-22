@@ -124,19 +124,19 @@
                                           <span class="fs-6 text-body-emphasis fw-500">Price</span>
                                     </th>
                                     <th scope="col" class="px-6 px-lg-9 align-middle">
-                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">$29.00</span>
+                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">₹29.00</span>
                                           <span
-                                                class="fs-15px fw-500 text-decoration-line-through text-body ">$39.00</span>
+                                                class="fs-15px fw-500 text-decoration-line-through text-body ">₹39.00</span>
                                           <span class="badge bg-primary ms-4 fs-6">-20%</span>
                                     </th>
                                     <th scope="col" class="px-6 px-lg-9 align-middle">
-                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">$24.00</span>
+                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">₹24.00</span>
                                           <span
-                                                class="fs-15px fw-500 text-decoration-line-through text-body ">$39.00</span>
+                                                class="fs-15px fw-500 text-decoration-line-through text-body ">₹39.00</span>
                                           <span class="badge bg-primary ms-4 fs-6">-25%</span>
                                     </th>
                                     <th scope="col" class="px-6 px-lg-9 align-middle">
-                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">$27.00</span>
+                                          <span class="pe-3 fs-18px font-weight-bold text-body-emphasis">₹27.00</span>
                                     </th>
                               </tr>
                               <tr>

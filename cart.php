@@ -184,8 +184,8 @@ include_once "header.php";
                                                                   <div>
                                                                         <p class="fw-500 mb-1 text-body-emphasis">Cleansing Balm</p>
                                                                         <p class="card-text">
-                                                                              <span class="fs-13px fw-500 text-decoration-line-through pe-3">$39.00</span>
-                                                                              <span class="fs-15px fw-bold text-body-emphasis">$29.00</span>
+                                                                              <span class="fs-13px fw-500 text-decoration-line-through pe-3">₹39.00</span>
+                                                                              <span class="fs-15px fw-bold text-body-emphasis">₹29.00</span>
                                                                         </p>
                                                                   </div>
                                                             </div>

@@ -76,12 +76,6 @@ ob_start();
                                                       href="contact-us.php" id="menu-item-shop" aria-haspopup="false"
                                                       aria-expanded="false">Contact Us</a>
                                           </li>
-                                          <li
-                                                class="nav-item transition-all-xl-1 py-11 me-xxl-12 me-xl-10 dropdown dropdown-hover dropdown-fullwidth position-static">
-                                                <a class="nav-link d-flex justify-content-between position-relative py-0 px-0 text-uppercase fw-semibold ls-1 fs-14px dropdown-toggle"
-                                                      href="blog.php" id="menu-item-shop" aria-haspopup="false"
-                                                      aria-expanded="false">Blog</a>
-                                          </li>
                                     </ul>
                               </div>
                               <a href="index.php" class="navbar-brand px-8 py-4 mx-auto">

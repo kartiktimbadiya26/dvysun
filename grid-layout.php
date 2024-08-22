@@ -187,16 +187,17 @@ include_once "header.php";
                                                                   </button>
                                                             </a>
                                                       <?php } ?>
-                                                      <!-- <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                            href="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            data-bs-title="Quick View">
+                                                      <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
+                                                            href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-title="Quick View" data-product-id="<?php echo $row["id"]; ?>">
                                                             <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                                                   class="d-flex align-items-center justify-content-center">
                                                                   <svg class="icon icon-eye-light">
                                                                         <use xlink:href="#icon-eye-light"></use>
                                                                   </svg>
                                                             </span>
-                                                      </a> -->
+                                                      </a>
+
                                                       <?php if (!$avelable_wishlist) { ?>
                                                             <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
                                                                   href="#" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -239,9 +240,9 @@ include_once "header.php";
                                                 <span
                                                       class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
                                                       <del
-                                                            class=" text-body fw-500 me-4 fs-13px">$<?php echo $row["product_price"]; ?></del>
+                                                            class=" text-body fw-500 me-4 fs-13px">₹<?php echo $row["product_price"]; ?></del>
                                                       <ins
-                                                            class="text-decoration-none">$<?php echo $row["product_selling_price"]; ?></ins></span>
+                                                            class="text-decoration-none">₹<?php echo $row["product_selling_price"]; ?></ins></span>
                                                 <h4
                                                       class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                       <a class="text-decoration-none text-reset"

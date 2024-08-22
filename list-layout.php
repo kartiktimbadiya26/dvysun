@@ -64,7 +64,6 @@ if (isset($_POST["removeBag"])) {
       $product_id = $_POST["removeBag"];
       $del = "DELETE FROM cart WHERE user_id=$user_id and product_id=$product_id";
       $chek_result = mysqli_query($conn, $del);
-
 }
 
 include_once "header.php";
@@ -91,11 +90,11 @@ include_once "header.php";
       <section class="container container-xxl">
             <div class="tool-bar mb-11 align-items-center justify-content-between d-lg-flex">
                   <div class="tool-bar-left mb-6 mb-lg-0 fs-18px">We found <span class="text-body-emphasis fw-semibold"><?php
-                  $query_count = "SELECT COUNT(id) FROM product";
-                  $result_count = mysqli_query($conn, $query_count);
-                  $result_count_data = $result_count->fetch_assoc();
-                  echo $result_count_data["COUNT(id)"];
-                  ?></span> products available for you</div>
+                                                                                                                        $query_count = "SELECT COUNT(id) FROM product";
+                                                                                                                        $result_count = mysqli_query($conn, $query_count);
+                                                                                                                        $result_count_data = $result_count->fetch_assoc();
+                                                                                                                        echo $result_count_data["COUNT(id)"];
+                                                                                                                        ?></span> products available for you</div>
                   <div class="tool-bar-right align-items-center d-flex ">
                         <ul class="list-unstyled d-flex align-items-center list-inline me-lg-7 me-0 mb-0 ">
                               <li class="list-inline-item me-7">
@@ -123,7 +122,7 @@ include_once "header.php";
                               <div class="row gy-11">
                                     <?php while ($row = $result->fetch_assoc()) {
                                           $img = explode(",", $row["images"]);
-                                          ?>
+                                    ?>
                                           <div class="col-12">
                                                 <div class="card flex-md-row card-product list bg-transparent border-0"
                                                       data-animate="fadeInUp">
@@ -148,9 +147,9 @@ include_once "header.php";
                                                             <span
                                                                   class="d-flex align-items-center price text-body-emphasis fw-bold mb-3 fs-18px">
                                                                   <del
-                                                                        class=" text-body fw-500 me-4 fs-15px">$<?php echo $row["product_price"]; ?></del>
+                                                                        class=" text-body fw-500 me-4 fs-15px">₹<?php echo $row["product_price"]; ?></del>
                                                                   <ins
-                                                                        class="text-decoration-none">$<?php echo $row["product_selling_price"]; ?></ins></span>
+                                                                        class="text-decoration-none">₹<?php echo $row["product_selling_price"]; ?></ins></span>
                                                             <h4
                                                                   class="product-title card-title text-primary-hover text-body-emphasis fs-4 fw-semibold mb-5">
                                                                   <a class="text-decoration-none text-reset"
@@ -192,11 +191,11 @@ include_once "header.php";
                                                                         $res = $result_review->fetch_assoc();
                                                                         ?>
                                                                         <div class="filled-stars" style="width:  <?php if ($res["AVG(rate)"] > 0) {
-                                                                              echo $res["AVG(rate)"];
-                                                                        } else {
-                                                                              echo 0;
-                                                                        }
-                                                                        ?>%">
+                                                                                                                        echo $res["AVG(rate)"];
+                                                                                                                  } else {
+                                                                                                                        echo 0;
+                                                                                                                  }
+                                                                                                                  ?>%">
                                                                               <span class="star">
                                                                                     <svg class="icon star text-primary">
                                                                                           <use xlink:href="#star"></use>
@@ -286,11 +285,10 @@ include_once "header.php";
                                                                               </svg>
                                                                         </button>
                                                                   <?php } ?>
-                                                                  <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action quick-view"
-                                                                        href="#" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="top" data-bs-title="Quick View">
-                                                                        <span data-bs-toggle="modal"
-                                                                              data-bs-target="#quickViewModal"
+                                                                  <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Quick View" data-product-id="<?php echo $row["id"]; ?>">
+                                                                        <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                                                               class="d-flex align-items-center justify-content-center">
                                                                               <svg class="icon icon-eye-light">
                                                                                     <use xlink:href="#icon-eye-light"></use>
@@ -318,10 +316,10 @@ include_once "header.php";
                                     <li class="page-item">
                                           <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
                                                 href="grid-layout.php?page=<?php
-                                                if ($page > 1)
-                                                      echo $page - 1;
-                                                else
-                                                      echo $page; ?>&limit=<?php echo $limit; ?>"
+                                                                              if ($page > 1)
+                                                                                    echo $page - 1;
+                                                                              else
+                                                                                    echo $page; ?>&limit=<?php echo $limit; ?>"
                                                 aria-label="Previous">
                                                 <svg class="icon">
                                                       <use xlink:href="#icon-angle-double-left"></use>
@@ -348,16 +346,16 @@ include_once "header.php";
                                                             <?php echo $i; ?>
                                                       </a>
                                                 </li>
-                                          <?php }
+                                    <?php }
                                     }
                                     ?>
                                     <li class="page-item">
                                           <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
                                                 href="grid-layout.php?page=<?php
-                                                if ($page < ($i - 1))
-                                                      echo $page + 1;
-                                                else
-                                                      echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
+                                                                              if ($page < ($i - 1))
+                                                                                    echo $page + 1;
+                                                                              else
+                                                                                    echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
                                                 <svg class="icon">
                                                       <use xlink:href="#icon-angle-double-right"></use>
                                                 </svg>

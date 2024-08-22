@@ -37,7 +37,7 @@
                                           <p class="hero-desc text-body-calculate fs-18px mb-11">Made using clean,
                                                 non-toxic ingredients, our products are designed for everyone.</p>
                                     </div>
-                                    <a href="#" data-animate="fadeInUp"
+                                    <a href="grid-layout.php" data-animate="fadeInUp"
                                           class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
                                           Shop Now
                                     </a>
@@ -60,7 +60,7 @@
                                           <p class="hero-desc text-body-calculate fs-18px mb-11">Made using clean,
                                                 non-toxic ingredients, our products are designed for everyone.</p>
                                     </div>
-                                    <a href="#" data-animate="fadeInUp"
+                                    <a href="grid-layout.php" data-animate="fadeInUp"
                                           class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
                                           Shop Now
                                     </a>
@@ -131,8 +131,8 @@
                                     <div class="card-body text-center p-0">
                                           <span
                                                 class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">$40.00</del>
-                                                <ins class="text-decoration-none">$30.00</ins></span>
+                                                <del class=" text-body fw-500 me-4 fs-13px">₹40.00</del>
+                                                <ins class="text-decoration-none">₹30.00</ins></span>
                                           <h4
                                                 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                 <a class="text-decoration-none text-reset"
@@ -243,7 +243,7 @@
                                     </figure>
                                     <div class="card-body text-center p-0">
                                           <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$20.00</span>
+                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹20.00</span>
                                           <h4
                                                 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                 <a class="text-decoration-none text-reset"
@@ -357,7 +357,7 @@
                                     </figure>
                                     <div class="card-body text-center p-0">
                                           <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
+                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
                                           <h4
                                                 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                 <a class="text-decoration-none text-reset"
@@ -473,8 +473,8 @@
                                     <div class="card-body text-center p-0">
                                           <span
                                                 class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">$25.00</del>
-                                                <ins class="text-decoration-none">$19.00</ins></span>
+                                                <del class=" text-body fw-500 me-4 fs-13px">₹25.00</del>
+                                                <ins class="text-decoration-none">₹19.00</ins></span>
                                           <h4
                                                 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                 <a class="text-decoration-none text-reset"
@@ -589,8 +589,8 @@
                                     <div class="card-body text-center p-0">
                                           <span
                                                 class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">$39.00</del>
-                                                <ins class="text-decoration-none">$29.00</ins></span>
+                                                <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
+                                                <ins class="text-decoration-none">₹29.00</ins></span>
                                           <h4
                                                 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                 <a class="text-decoration-none text-reset"
@@ -675,7 +675,7 @@
                                           NEW COLLECTION</h6>
                                     <h3 class="card-title lh-45px mw-md-60 pe-xl-15  fs-3 pe-0">Intensive Glow
                                           C&#43; Serum</h3>
-                                    <div class="mt-7"><a href="#" class="btn btn-white px-6 shadow-sm">Explore
+                                    <div class="mt-7"><a href="grid-layout.php" class="btn btn-white px-6 shadow-sm">Explore
                                                 More</a></div>
                               </div>
                         </div>
@@ -692,7 +692,7 @@
                                     <h3 class="card-title lh-45px fs-3 pe-15">25% off Everything</h3>
                                     <p class="card-text fs-15px text-body-emphasis mw-md-60 pe-xl-20">Makeup with
                                           extended range in colors for every human.</p>
-                                    <div class="mt-7"><a href="#" class="btn btn-white shadow-sm">Shop Sale</a>
+                                    <div class="mt-7"><a href="grid-layout.php" class="btn btn-white shadow-sm">Shop Sale</a>
                                     </div>
                               </div>
                         </div>
@@ -712,7 +712,7 @@
                                     <div class="icon-box-content card-body pt-4">
                                           <h3 class="icon-box-title card-title fs-5 mb-4 pb-2">Free Shipping</h3>
                                           <p class="icon-box-desc card-text fs-18px mb-0">Free Shipping for orders
-                                                over $130</p>
+                                                over ₹130</p>
                                     </div>
                               </div>
                         </div>
@@ -835,7 +835,7 @@
                                           <p class="card-text mb-0 fs-18px text-white mt-5">Get the skin you want
                                                 to feel</p>
                                           <div class="mt-10 pt-2">
-                                                <a href="#" class="btn btn-white">Explore More</a>
+                                                <a href="grid-layout.php" class="btn btn-white">Explore More</a>
                                           </div>
                                     </div>
                               </div>
@@ -889,7 +889,7 @@
                                                 </figure>
                                                 <div class="card-body text-center p-0">
                                                       <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
+                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1011,7 +1011,7 @@
                                                 </figure>
                                                 <div class="card-body text-center p-0">
                                                       <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
+                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1138,8 +1138,8 @@
                                                 <div class="card-body text-center p-0">
                                                       <span
                                                             class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                            <del class=" text-body fw-500 me-4 fs-13px">$39.00</del>
-                                                            <ins class="text-decoration-none">$29.00</ins></span>
+                                                            <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
+                                                            <ins class="text-decoration-none">₹29.00</ins></span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1266,8 +1266,8 @@
                                                 <div class="card-body text-center p-0">
                                                       <span
                                                             class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                            <del class=" text-body fw-500 me-4 fs-13px">$39.00</del>
-                                                            <ins class="text-decoration-none">$29.00</ins></span>
+                                                            <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
+                                                            <ins class="text-decoration-none">₹29.00</ins></span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1391,7 +1391,7 @@
                                                 </figure>
                                                 <div class="card-body text-center p-0">
                                                       <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
+                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1515,7 +1515,7 @@
                                                 </figure>
                                                 <div class="card-body text-center p-0">
                                                       <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">$29.00</span>
+                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
                                                       <h4
                                                             class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
                                                             <a class="text-decoration-none text-reset"
@@ -1618,7 +1618,7 @@
                                                 <a class="color-inherit text-decoration-none" href="#">Summer
                                                       Collection</a>
                                           </h5>
-                                          <a href="#" title="Shop now"
+                                          <a href="grid-layout.php" title="Shop now"
                                                 class="btn btn-link fw-semibold text-body-emphasis">Shop now <i
                                                       class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
                                     </div>
@@ -1639,7 +1639,7 @@
                                                 <a class="color-inherit text-decoration-none" href="#">Summer
                                                       Collection</a>
                                           </h5>
-                                          <a href="#" title="Shop now"
+                                          <a href="grid-layout.php" title="Shop now"
                                                 class="btn btn-link fw-semibold text-body-emphasis">Read more <i
                                                       class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
                                     </div>
