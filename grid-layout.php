@@ -15,8 +15,11 @@ if (isset($_GET["page"])) {
       }
 }
 $query = "SELECT * FROM product LIMIT $limit OFFSET $skip";
+if (isset($_GET["search"])) {
+      $se = $_GET["search"];
+      $query = "SELECT * FROM product WHERE name LIKE '%" . $se . "%'";
+}
 $result = mysqli_query($conn, $query);
-
 
 if (isset($_POST["addBag"])) {
       if (isset($_SESSION["userId"])) {
@@ -93,11 +96,15 @@ include_once "header.php";
                   <div class="tool-bar-left mb-6 mb-lg-0 fs-18px">We found <span class="text-body-emphasis fw-semibold">
                               <?php
                               $query_count = "SELECT COUNT(id) FROM product";
+                              if (isset($_GET["search"])) {
+                                    $se = $_GET["search"];
+                                    $query_count = "SELECT COUNT(id) FROM product WHERE name LIKE '%" . $se . "%'";
+                              }
                               $result_count = mysqli_query($conn, $query_count);
                               $result_count_data = $result_count->fetch_assoc();
                               echo $result_count_data["COUNT(id)"];
                               ?></span>
-                        products available for you</div>
+                        products available</div>
                   <div class="tool-bar-right align-items-center d-lg-flex">
                         <ul class="list-unstyled d-flex align-items-center list-inline me-lg-7 me-0 mb-6 mb-lg-0">
                               <li class="list-inline-item me-7">
@@ -129,7 +136,7 @@ include_once "header.php";
                                           <figure class="card-img-top position-relative mb-7 overflow-hidden ">
                                                 <a href="product-details.php?id=<?php echo $row["id"]; ?>"
                                                       class="hover-zoom-in d-block" title="Shield Conditioner">
-                                                      <img src="#" data-src=" ./assets/images/products/<?php echo $img[0]; ?>"
+                                                      <img src="#" data-src="./assets/images/products/<?php echo $img[0]; ?>"
                                                             class="img-fluid lazy-image w-100" alt="Shield Conditioner"
                                                             width="330" height="440">
                                                 </a>
@@ -227,13 +234,6 @@ include_once "header.php";
                                                                   </button>
                                                             </a>
                                                       <?php } ?>
-                                                      <!-- <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                            href="compare.html" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" data-bs-title="Compare">
-                                                            <svg class="icon icon-arrows-left-right-light">
-                                                                  <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                            </svg>
-                                                      </a> -->
                                                 </div>
                                           </figure>
                                           <div class="card-body text-center p-0">
@@ -326,55 +326,58 @@ include_once "header.php";
                   </div>
             </form>
       </div>
-      <nav class="d-flex mt-13 pt-3 justify-content-center" aria-label="pagination" data-animate="fadeInUp">
-            <ul class="pagination m-0">
-                  <li class="page-item">
-                        <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
-                              href="grid-layout.php?page=<?php
-                                                            if ($page > 1)
-                                                                  echo $page - 1;
-                                                            else
-                                                                  echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Previous">
-                              <svg class="icon">
-                                    <use xlink:href="#icon-angle-double-left"></use>
-                              </svg>
-                        </a>
-                  </li>
-                  <?php
-                  $query = "SELECT * FROM product";
-                  $for_count = mysqli_query($conn, $query);
-                  $count = $for_count->num_rows;
-                  $query = "SELECT * FROM product";
-                  for ($i = 1; $i <= ceil($count / $limit); $i++) {
-                        if ($page == $i) { ?>
-                              <li class="page-item active mx-3">
-                                    <a class="page-link" href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
-                                          <?php echo $i; ?>
-                                    </a>
-                              </li>
-                        <?php } else { ?>
-                              <li class="page-item mx-3">
-                                    <a class="page-link" href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
-                                          <?php echo $i; ?>
-                                    </a>
-                              </li>
-                  <?php }
-                  }
-                  ?>
-                  <li class="page-item">
-                        <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
-                              href="grid-layout.php?page=<?php
-                                                            if ($page < ($i - 1))
-                                                                  echo $page + 1;
-                                                            else
-                                                                  echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
-                              <svg class="icon">
-                                    <use xlink:href="#icon-angle-double-right"></use>
-                              </svg>
-                        </a>
-                  </li>
-            </ul>
-      </nav>
+
+      <?php if (!isset($_GET["search"])) { ?>
+            <nav class="d-flex mt-13 pt-3 justify-content-center overflow-auto" aria-label="pagination" data-animate="fadeInUp">
+                  <ul class="pagination m-0">
+                        <li class="page-item">
+                              <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                                    href="grid-layout.php?page=<?php
+                                                                  if ($page > 1)
+                                                                        echo $page - 1;
+                                                                  else
+                                                                        echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Previous">
+                                    <svg class="icon">
+                                          <use xlink:href="#icon-angle-double-left"></use>
+                                    </svg>
+                              </a>
+                        </li>
+                        <?php
+                        $query = "SELECT * FROM product";
+                        $for_count = mysqli_query($conn, $query);
+                        $count = $for_count->num_rows;
+                        $query = "SELECT * FROM product";
+                        for ($i = 1; $i <= ceil($count / $limit); $i++) {
+                              if ($page == $i) { ?>
+                                    <li class="page-item active mx-3">
+                                          <a class="page-link" href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
+                                                <?php echo $i; ?>
+                                          </a>
+                                    </li>
+                              <?php } else { ?>
+                                    <li class="page-item mx-3">
+                                          <a class="page-link" href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
+                                                <?php echo $i; ?>
+                                          </a>
+                                    </li>
+                        <?php }
+                        }
+                        ?>
+                        <li class="page-item">
+                              <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                                    href="grid-layout.php?page=<?php
+                                                                  if ($page < ($i - 1))
+                                                                        echo $page + 1;
+                                                                  else
+                                                                        echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
+                                    <svg class="icon">
+                                          <use xlink:href="#icon-angle-double-right"></use>
+                                    </svg>
+                              </a>
+                        </li>
+                  </ul>
+            </nav>
+      <?php } ?>
       </div>
 </main>
 <?php include_once "footer.php"; ?>

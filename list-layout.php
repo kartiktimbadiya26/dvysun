@@ -313,54 +313,56 @@ include_once "header.php";
                         <nav class="d-flex mt-13 pt-3 justify-content-center" aria-label="pagination"
                               data-animate="fadeInUp">
                               <ul class="pagination m-0">
-                                    <li class="page-item">
-                                          <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
-                                                href="grid-layout.php?page=<?php
-                                                                              if ($page > 1)
-                                                                                    echo $page - 1;
-                                                                              else
-                                                                                    echo $page; ?>&limit=<?php echo $limit; ?>"
-                                                aria-label="Previous">
-                                                <svg class="icon">
-                                                      <use xlink:href="#icon-angle-double-left"></use>
-                                                </svg>
-                                          </a>
-                                    </li>
-                                    <?php
-                                    $query = "SELECT * FROM product";
-                                    $for_count = mysqli_query($conn, $query);
-                                    $count = $for_count->num_rows;
-                                    $query = "SELECT * FROM product";
-                                    for ($i = 1; $i <= ceil($count / $limit); $i++) {
-                                          if ($page == $i) { ?>
-                                                <li class="page-item active mx-3">
-                                                      <a class="page-link"
-                                                            href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
-                                                            <?php echo $i; ?>
-                                                      </a>
-                                                </li>
-                                          <?php } else { ?>
-                                                <li class="page-item mx-3">
-                                                      <a class="page-link"
-                                                            href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
-                                                            <?php echo $i; ?>
-                                                      </a>
-                                                </li>
-                                    <?php }
-                                    }
-                                    ?>
-                                    <li class="page-item">
-                                          <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
-                                                href="grid-layout.php?page=<?php
-                                                                              if ($page < ($i - 1))
-                                                                                    echo $page + 1;
-                                                                              else
-                                                                                    echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
-                                                <svg class="icon">
-                                                      <use xlink:href="#icon-angle-double-right"></use>
-                                                </svg>
-                                          </a>
-                                    </li>
+                                    <div class="row justify-content-center">
+                                          <li class="page-item col-2">
+                                                <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                                                      href="grid-layout.php?page=<?php
+                                                                                    if ($page > 1)
+                                                                                          echo $page - 1;
+                                                                                    else
+                                                                                          echo $page; ?>&limit=<?php echo $limit; ?>"
+                                                      aria-label="Previous">
+                                                      <svg class="icon">
+                                                            <use xlink:href="#icon-angle-double-left"></use>
+                                                      </svg>
+                                                </a>
+                                          </li>
+                                          <?php
+                                          $query = "SELECT * FROM product";
+                                          $for_count = mysqli_query($conn, $query);
+                                          $count = $for_count->num_rows;
+                                          $query = "SELECT * FROM product";
+                                          for ($i = 1; $i <= ceil($count / $limit); $i++) {
+                                                if ($page == $i) { ?>
+                                                      <li class="page-item active col-2 mx-3">
+                                                            <a class="page-link"
+                                                                  href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
+                                                                  <?php echo $i; ?>
+                                                            </a>
+                                                      </li>
+                                                <?php } else { ?>
+                                                      <li class="page-item mx-3 col-2">
+                                                            <a class="page-link"
+                                                                  href="grid-layout.php?page=<?php echo $i; ?>&limit=<?php echo $limit; ?>">
+                                                                  <?php echo $i; ?>
+                                                            </a>
+                                                      </li>
+                                          <?php }
+                                          }
+                                          ?>
+                                          <li class="page-item col-2">
+                                                <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                                                      href="grid-layout.php?page=<?php
+                                                                                    if ($page < ($i - 1))
+                                                                                          echo $page + 1;
+                                                                                    else
+                                                                                          echo $page; ?>&limit=<?php echo $limit; ?>" aria-label="Next">
+                                                      <svg class="icon">
+                                                            <use xlink:href="#icon-angle-double-right"></use>
+                                                      </svg>
+                                                </a>
+                                          </li>
+                                    </div>
                               </ul>
                         </nav>
                   </div>

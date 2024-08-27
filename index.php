@@ -1,663 +1,292 @@
-<?php include_once "header.php"; ?>
+<?php
+if (isset($_POST["addBag"])) {
+      if (isset($_SESSION["userId"])) {
+            $user_id = $_SESSION["userId"];
+            $product_id = $_POST["addBag"];
+            $number = 1;
+            $chek = "SELECT * FROM cart WHERE user_id=$user_id and product_id=$product_id";
+            $chek_result = mysqli_query($conn, $chek);
+            if ($chek_result->num_rows == 0) {
+                  $add_pro_query = "INSERT INTO cart (user_id,product_id,quantity) VALUES (?,?,?)";
+                  $stmt = $conn->prepare($add_pro_query);
+                  $stmt->bind_param("sss", $user_id, $product_id, $number);
+                  $stmt->execute();
+            } else {
+            }
+      } else {
+            $_SESSION["back"] = $_SERVER["REQUEST_URI"];
+            header("location:login.php");
+      }
+}
+
+if (isset($_POST["wishlist"])) {
+      if (isset($_SESSION["userId"])) {
+            $user_id = $_SESSION["userId"];
+            $product_id = $_POST["wishlist"];
+            $chek = "SELECT * FROM wishlist WHERE user_id=$user_id and product_id=$product_id";
+            $chek_result = mysqli_query($conn, $chek);
+            if ($chek_result->num_rows == 0) {
+                  $add_pro_query = "INSERT INTO wishlist (user_id,product_id) VALUES (?,?)";
+                  $stmt = $conn->prepare($add_pro_query);
+                  $stmt->bind_param("ss", $user_id, $product_id);
+                  $stmt->execute();
+            } else {
+                  $del = "DELETE FROM wishlist WHERE user_id=$user_id and product_id=$product_id";
+                  $chek_result = mysqli_query($conn, $del);
+            }
+      } else {
+            $_SESSION["back"] = $_SERVER["REQUEST_URI"];
+            header("location:login.php");
+      }
+}
+
+if (isset($_POST["removeBag"])) {
+      $user_id = $_SESSION["userId"];
+      $product_id = $_POST["removeBag"];
+      $del = "DELETE FROM cart WHERE user_id=$user_id and product_id=$product_id";
+      $chek_result = mysqli_query($conn, $del);
+}
+include_once "header.php";
+
+?>
 
 <main id="content" class="wrapper layout-page">
       <section>
             <div class="slick-slider hero hero-header-01"
                   data-slick-options="{&#34;arrows&#34;:false,&#34;autoplay&#34;:true,&#34;cssEase&#34;:&#34;ease-in-out&#34;,&#34;dots&#34;:false,&#34;fade&#34;:true,&#34;infinite&#34;:true,&#34;slidesToShow&#34;:1,&#34;speed&#34;:600}">
-                  <div class="vh-100 d-flex align-items-center">
-                        <div class="z-index-2 container container-xxl py-21 pt-xl-10 pb-xl-11">
-                              <div class="hero-content text-start">
-                                    <div data-animate="fadeInDown">
-                                          <p class="text-body-emphasis mb-8 text-uppercase fw-semibold fs-15px">
-                                                Essenstial Items</p>
-                                          <h1 class="mb-7 hero-title">Beauty Inspired <br> by Real Life</h1>
-                                          <p class="hero-desc text-body-calculate fs-18px mb-11">Made using clean,
-                                                non-toxic ingredients, our products are designed for everyone.</p>
+                  <?php
+                  $sql = "SELECT * FROM carousel_data";
+                  $carousel_data_result = mysqli_query($conn, $sql);
+                  while ($row = $carousel_data_result->fetch_assoc()) {
+                  ?>
+                        <div class="vh-100 d-flex align-items-center">
+                              <div class="z-index-2 container container-xxl py-21 pt-xl-10 pb-xl-11">
+                                    <div class="hero-content text-start">
+                                          <div data-animate="fadeInDown">
+                                                <p class="text-body-emphasis mb-8 text-uppercase fw-semibold fs-15px">
+                                                      <?php echo $row["title_header"]; ?></p>
+                                                <h1 class="mb-7 hero-title"><?php echo $row["title"]; ?></h1>
+                                                <p class="hero-desc text-body-calculate fs-18px mb-11"><?php echo $row["description"]; ?></p>
+                                          </div>
+                                          <a href="grid-layout.php" data-animate="fadeInUp"
+                                                class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
+                                                Shop Now
+                                          </a>
                                     </div>
-                                    <a href="grid-layout.php" data-animate="fadeInUp"
-                                          class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
-                                          Shop Now
-                                    </a>
+                              </div>
+                              <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
+                                    data-bg-src="assets/images/hero-slider/<?php echo $row["image"]; ?>">
+                              </div>
+                              <div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100"
+                                    data-bg-src="assets/images/hero-slider/<?php echo $row["image"]; ?>">
                               </div>
                         </div>
-                        <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
-                              data-bg-src="assets/images/hero-slider/hero-slider-01.jpg">
-                        </div>
-                        <div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100"
-                              data-bg-src="assets/images/hero-slider/hero-slider-white-01.jpg">
-                        </div>
-                  </div>
-                  <div class="vh-100 d-flex align-items-center">
-                        <div class="z-index-2 container container-xxl py-21 pt-xl-10 pb-xl-11">
-                              <div class="hero-content text-start">
-                                    <div data-animate="fadeInDown">
-                                          <p class="text-body-emphasis mb-8 text-uppercase fw-semibold fs-15px">
-                                                New collection</p>
-                                          <h1 class="mb-7 hero-title">Get The Perfectly <br> Hydrated Skin</h1>
-                                          <p class="hero-desc text-body-calculate fs-18px mb-11">Made using clean,
-                                                non-toxic ingredients, our products are designed for everyone.</p>
-                                    </div>
-                                    <a href="grid-layout.php" data-animate="fadeInUp"
-                                          class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
-                                          Shop Now
-                                    </a>
-                              </div>
-                        </div>
-                        <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
-                              data-bg-src="assets/images/hero-slider/hero-slider-02.jpg">
-                        </div>
-                        <div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100"
-                              data-bg-src="assets/images/hero-slider/hero-slider-white-02.jpg">
-                        </div>
-                  </div>
-                  <div class="vh-100 d-flex align-items-center">
-                        <div class="z-index-2 container container-xxl py-21 pt-xl-10 pb-xl-11">
-                              <div class="hero-content text-start">
-                                    <div data-animate="fadeInDown">
-                                          <p class="text-body-emphasis mb-8 text-uppercase fw-semibold fs-15px">
-                                                Get the glow</p>
-                                          <h1 class="mb-7 hero-title">Be Your <br> Kind of Beauty</h1>
-                                          <p class="hero-desc text-body-calculate fs-18px mb-11">Made using clean,
-                                                non-toxic ingredients, our products are designed for everyone.</p>
-                                    </div>
-                                    <a href="grid-layout.php" data-animate="fadeInUp"
-                                          class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
-                                          Shop Now
-                                    </a>
-                              </div>
-                        </div>
-                        <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
-                              data-bg-src="assets/images/hero-slider/hero-slider-03.jpg">
-                        </div>
-                        <div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100"
-                              data-bg-src="assets/images/hero-slider/hero-slider-white-03.jpg">
-                        </div>
-                  </div>
+                  <?php } ?>
             </div>
       </section>
       <section>
             <div class="container container-xxl py-lg-17 pt-14 pb-16">
-                  <div class="mb-13 pb-3 text-center" data-animate="fadeInUp">
-                        <h2 class="mb-5">Our Featured Products</h2>
-                        <p class="fs-18px mb-0">Get the skin you want to feel</p>
-                  </div>
-                  <div class="slick-slider"
-                        data-slick-options="{&#34;arrows&#34;:true,&#34;dots&#34;:false,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1560,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true}},{&#34;breakpoint&#34;:1200,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:3}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:576,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:4}">
-                        <div>
-                              <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-                                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
-                                          <a href="shop/product-details-v1.html" class="hover-zoom-in d-block"
-                                                title="Shield Conditioner">
-                                                <img src="#" data-src="./assets/images/products/product-01-330x440.jpg"
-                                                      class="img-fluid lazy-image w-100" alt="Shield Conditioner"
-                                                      width="330" height="440">
-                                          </a>
-                                          <div class="position-absolute product-flash z-index-2 "><span
-                                                      class="badge badge-product-flash on-sale bg-primary">-25%</span>
-                                          </div>
-                                          <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Cart">
-                                                      <svg class="icon icon-shopping-bag-open-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                </a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Quick View">
-                                                      <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                            class="d-flex align-items-center justify-content-center">
-                                                            <svg class="icon icon-eye-light">
-                                                                  <use xlink:href="#icon-eye-light"></use>
-                                                            </svg>
-                                                      </span>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Wishlist">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                      href="shop/compare.html" data-bs-toggle="tooltip"
-                                                      data-bs-placement="top" data-bs-title="Compare">
-                                                      <svg class="icon icon-arrows-left-right-light">
-                                                            <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                    </figure>
-                                    <div class="card-body text-center p-0">
-                                          <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">₹40.00</del>
-                                                <ins class="text-decoration-none">₹30.00</ins></span>
-                                          <h4
-                                                class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                <a class="text-decoration-none text-reset"
-                                                      href="shop/product-details-v1.html">Shield Conditioner</a>
-                                          </h4>
-                                          <div class="d-flex align-items-center fs-12px justify-content-center">
-                                                <div class="rating">
-                                                      <div class="empty-stars">
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
+                  <form method="post">
+                        <div class="mb-13 pb-3 text-center" data-animate="fadeInUp">
+                              <h2 class="mb-5">Our Featured Products</h2>
+                              <p class="fs-18px mb-0">Get the skin you want to feel</p>
+                        </div>
+                        <div class="slick-slider"
+                              data-slick-options="{&#34;arrows&#34;:true,&#34;dots&#34;:false,&#34;responsive&#34;:[{&#34;breakpoint&#34;:1560,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true}},{&#34;breakpoint&#34;:1200,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:3}},{&#34;breakpoint&#34;:992,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:2}},{&#34;breakpoint&#34;:576,&#34;settings&#34;:{&#34;arrows&#34;:false,&#34;dots&#34;:true,&#34;slidesToShow&#34;:1}}],&#34;slidesToShow&#34;:4}">
+                              <?php
+                              $query = "SELECT *, (product_price - product_selling_price) / product_price * 100 AS discount_percentage
+                        FROM product
+                        ORDER BY discount_percentage ASC limit 5 ";
+                              $result = mysqli_query($conn, $query);
+                              while ($row = $result->fetch_assoc()) {
+                                    $img = explode(",", $row["images"]);
+                              ?>
+                                    <div>
+                                          <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
+                                                <figure class="card-img-top position-relative mb-7 overflow-hidden ">
+                                                      <a href="product-details.php?id=<?php echo $row["id"]; ?>" class="hover-zoom-in d-block"
+                                                            title="<?php echo $row["name"]; ?>">
+                                                            <img src="#" data-src="./assets/images/products/<?php echo $img[0]; ?>"
+                                                                  class="img-fluid lazy-image w-100" alt="<?php echo $row["name"]; ?>"
+                                                                  width="330" height="440">
+                                                      </a>
+                                                      <div class="position-absolute product-flash z-index-2 "><span
+                                                                  class="badge badge-product-flash on-sale bg-primary">-<?php echo round((($row["product_price"] - $row["product_selling_price"]) / $row["product_price"]) * 100, 2); ?>%</span>
                                                       </div>
-                                                      <div class="filled-stars" style="width: 80%">
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
+                                                      <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
+                                                            <?php
+                                                            $avelable_cart = false;
+                                                            $avelable_wishlist = false;
+                                                            if (isset($_SESSION["userId"])) {
+                                                                  $user_id = $_SESSION["userId"];
+                                                                  $product_id = $row["id"];
+                                                                  $chek = "SELECT * FROM cart WHERE user_id=$user_id and product_id=$product_id";
+                                                                  $chek_result = mysqli_query($conn, $chek);
+                                                                  if ($chek_result->num_rows == 1) {
+                                                                        $avelable_cart = true;
+                                                                  }
+                                                                  $chek = "SELECT * FROM wishlist WHERE user_id=$user_id and product_id=$product_id";
+                                                                  $chek_result = mysqli_query($conn, $chek);
+                                                                  if ($chek_result->num_rows == 1) {
+                                                                        $avelable_wishlist = true;
+                                                                  }
+                                                            }
+                                                            if (!$avelable_cart) { ?>
+                                                                  <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Add To Cart">
+                                                                        <button type="submit" name="addBag"
+                                                                              value="<?php echo $row["id"]; ?>"
+                                                                              class="border-0 bg-transparent rounded-circle text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                              <svg class="icon icon-shopping-bag-open-light">
+                                                                                    <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                                              </svg>
+                                                                        </button>
+                                                                  </a>
+                                                            <?php } else { ?>
+                                                                  <a class="bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Remove To Cart"
+                                                                        style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                        <button type="submit" name="removeBag"
+                                                                              value="<?php echo $row["id"]; ?>"
+                                                                              style="background-color: <?php echo "#000"; ?>;  color: white !important;"
+                                                                              class="border-0 bg-transparent rounded-circle bg-body  text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                              <svg class="icon icon-shopping-bag-open-light">
+                                                                                    <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                                              </svg>
+                                                                        </button>
+                                                                  </a>
+                                                            <?php } ?>
+                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
+                                                                  href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                  data-bs-title="Quick View" data-product-id="<?php echo $row["id"]; ?>">
+                                                                  <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                                                        class="d-flex align-items-center justify-content-center">
+                                                                        <svg class="icon icon-eye-light">
+                                                                              <use xlink:href="#icon-eye-light"></use>
+                                                                        </svg>
+                                                                  </span>
+                                                            </a>
+                                                            <?php if (!$avelable_wishlist) { ?>
+                                                                  <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Add To Wishlist"
+                                                                        style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                        <button type="submit" name="wishlist"
+                                                                              value="<?php echo $row["id"]; ?>"
+                                                                              class="border-0 bg-transparent bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm text-body-emphasis wishlist"
+                                                                              style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                              <svg class="icon icon-star-light">
+                                                                                    <use xlink:href="#icon-star-light"></use>
+                                                                              </svg>
+                                                                        </button>
+                                                                  </a>
+                                                            <?php } else { ?>
+                                                                  <a class="bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Remove To Wishlist"
+                                                                        style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                        <button type="submit" name="wishlist"
+                                                                              value="<?php echo $row["id"]; ?>"
+                                                                              style="background-color: <?php echo "#000"; ?>;  color: white !important;"
+                                                                              class="border-0 bg-transparent rounded-circle bg-body  text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                              <svg class="icon icon-star-light">
+                                                                                    <use xlink:href="#icon-star-light"></use>
+                                                                              </svg>
+                                                                        </button>
+                                                                  </a>
+                                                            <?php } ?>
                                                       </div>
-                                                </div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
+                                                </figure>
+                                                <div class="card-body text-center p-0">
+                                                      <span
+                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
+                                                            <del class=" text-body fw-500 me-4 fs-13px">₹<?php echo $row["product_price"]; ?></del>
+                                                            <ins class="text-decoration-none">₹<?php echo $row["product_selling_price"]; ?></ins></span>
+                                                      <h4
+                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
+                                                            <a class="text-decoration-none text-reset"
+                                                                  href="product-details.php?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
+                                                      </h4>
+                                                      <div class="d-flex align-items-center fs-12px justify-content-center">
+                                                            <div class="rating">
+                                                                  <div class="empty-stars">
+                                                                        <span class="star">
+                                                                              <svg class="icon star-o">
+                                                                                    <use xlink:href="#star-o"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star-o">
+                                                                                    <use xlink:href="#star-o"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star-o">
+                                                                                    <use xlink:href="#star-o"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star-o">
+                                                                                    <use xlink:href="#star-o"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star-o">
+                                                                                    <use xlink:href="#star-o"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                  </div>
+                                                                  <?php
+                                                                  $id = $row["id"];
+                                                                  $query_review = "SELECT COUNT(id) ,AVG(rate) FROM reviews WHERE product_id=$id";
+                                                                  $result_review = mysqli_query($conn, $query_review);
+                                                                  $res = $result_review->fetch_assoc();
+                                                                  ?>
+                                                                  <div class="filled-stars" style="width: <?php if ($res["AVG(rate)"] > 0) {
+                                                                                                                  echo $res["AVG(rate)"];
+                                                                                                            } else {
+                                                                                                                  echo 0;
+                                                                                                            }
+                                                                                                            ?>%">
+                                                                        <span class="star">
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                        <span class="star">
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
+                                                                              </svg>
+                                                                        </span>
+                                                                  </div>
+                                                            </div>
+                                                            <span
+                                                                  class="reviews ms-4 pt-3 fs-14px"><?php echo $res["COUNT(id)"]; ?>
+                                                                  reviews</span>
+                                                      </div>
+                                                </div>
                                           </div>
                                     </div>
-                              </div>
+                              <?php } ?>
                         </div>
-                        <div>
-                              <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-                                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
-                                          <a href="shop/product-details-v1.html" class="hover-zoom-in d-block"
-                                                title="Perfecting Facial Oil">
-                                                <img src="#" data-src="./assets/images/products/product-02-330x440.jpg"
-                                                      class="img-fluid lazy-image w-100" alt="Perfecting Facial Oil"
-                                                      width="330" height="440">
-                                          </a>
-                                          <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Cart">
-                                                      <svg class="icon icon-shopping-bag-open-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                </a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Quick View">
-                                                      <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                            class="d-flex align-items-center justify-content-center">
-                                                            <svg class="icon icon-eye-light">
-                                                                  <use xlink:href="#icon-eye-light"></use>
-                                                            </svg>
-                                                      </span>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Wishlist">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                      href="shop/compare.html" data-bs-toggle="tooltip"
-                                                      data-bs-placement="top" data-bs-title="Compare">
-                                                      <svg class="icon icon-arrows-left-right-light">
-                                                            <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                    </figure>
-                                    <div class="card-body text-center p-0">
-                                          <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹20.00</span>
-                                          <h4
-                                                class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                <a class="text-decoration-none text-reset"
-                                                      href="shop/product-details-v1.html">Perfecting Facial
-                                                      Oil</a>
-                                          </h4>
-                                          <div class="d-flex align-items-center fs-12px justify-content-center">
-                                                <div class="rating">
-                                                      <div class="empty-stars">
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                      <div class="filled-stars" style="width: 100%">
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                </div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <div>
-                              <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-                                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
-                                          <a href="shop/product-details-v1.html" class="hover-zoom-in d-block"
-                                                title="Enriched Hand &amp; Body Wash">
-                                                <img src="#" data-src="./assets/images/products/product-03-330x440.jpg"
-                                                      class="img-fluid lazy-image w-100"
-                                                      alt="Enriched Hand &amp; Body Wash" width="330" height="440">
-                                          </a>
-                                          <div class="position-absolute product-flash z-index-2 "><span
-                                                      class="badge badge-product-flash on-new">New</span></div>
-                                          <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Cart">
-                                                      <svg class="icon icon-shopping-bag-open-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                </a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Quick View">
-                                                      <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                            class="d-flex align-items-center justify-content-center">
-                                                            <svg class="icon icon-eye-light">
-                                                                  <use xlink:href="#icon-eye-light"></use>
-                                                            </svg>
-                                                      </span>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Wishlist">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                      href="shop/compare.html" data-bs-toggle="tooltip"
-                                                      data-bs-placement="top" data-bs-title="Compare">
-                                                      <svg class="icon icon-arrows-left-right-light">
-                                                            <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                    </figure>
-                                    <div class="card-body text-center p-0">
-                                          <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
-                                          <h4
-                                                class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                <a class="text-decoration-none text-reset"
-                                                      href="shop/product-details-v1.html">Enriched Hand &amp; Body
-                                                      Wash</a>
-                                          </h4>
-                                          <div class="d-flex align-items-center fs-12px justify-content-center">
-                                                <div class="rating">
-                                                      <div class="empty-stars">
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                      <div class="filled-stars" style="width: 100%">
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                </div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <div>
-                              <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-                                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
-                                          <a href="shop/product-details-v1.html" class="hover-zoom-in d-block"
-                                                title="Shield Shampoo">
-                                                <img src="#" data-src="./assets/images/products/product-04-330x440.jpg"
-                                                      class="img-fluid lazy-image w-100" alt="Shield Shampoo"
-                                                      width="330" height="440">
-                                          </a>
-                                          <div class="position-absolute product-flash z-index-2 "><span
-                                                      class="badge badge-product-flash on-sale bg-primary">-24%</span>
-                                          </div>
-                                          <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Cart">
-                                                      <svg class="icon icon-shopping-bag-open-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                </a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Quick View">
-                                                      <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                            class="d-flex align-items-center justify-content-center">
-                                                            <svg class="icon icon-eye-light">
-                                                                  <use xlink:href="#icon-eye-light"></use>
-                                                            </svg>
-                                                      </span>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Wishlist">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                      href="shop/compare.html" data-bs-toggle="tooltip"
-                                                      data-bs-placement="top" data-bs-title="Compare">
-                                                      <svg class="icon icon-arrows-left-right-light">
-                                                            <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                    </figure>
-                                    <div class="card-body text-center p-0">
-                                          <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">₹25.00</del>
-                                                <ins class="text-decoration-none">₹19.00</ins></span>
-                                          <h4
-                                                class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                <a class="text-decoration-none text-reset"
-                                                      href="shop/product-details-v1.html">Shield Shampoo</a>
-                                          </h4>
-                                          <div class="d-flex align-items-center fs-12px justify-content-center">
-                                                <div class="rating">
-                                                      <div class="empty-stars">
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                      <div class="filled-stars" style="width: 80%">
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                </div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <div>
-                              <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
-                                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
-                                          <a href="shop/product-details-v1.html" class="hover-zoom-in d-block"
-                                                title="Enriched Hand Wash">
-                                                <img src="#" data-src="./assets/images/products/product-05-330x440.jpg"
-                                                      class="img-fluid lazy-image w-100" alt="Enriched Hand Wash"
-                                                      width="330" height="440">
-                                          </a>
-                                          <div class="position-absolute product-flash z-index-2 "><span
-                                                      class="badge badge-product-flash on-sale bg-primary">-26%</span>
-                                          </div>
-                                          <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Cart">
-                                                      <svg class="icon icon-shopping-bag-open-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                </a><a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Quick View">
-                                                      <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                            class="d-flex align-items-center justify-content-center">
-                                                            <svg class="icon icon-eye-light">
-                                                                  <use xlink:href="#icon-eye-light"></use>
-                                                            </svg>
-                                                      </span>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
-                                                      href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                      data-bs-title="Add To Wishlist">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                </a>
-                                                <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare"
-                                                      href="shop/compare.html" data-bs-toggle="tooltip"
-                                                      data-bs-placement="top" data-bs-title="Compare">
-                                                      <svg class="icon icon-arrows-left-right-light">
-                                                            <use xlink:href="#icon-arrows-left-right-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                    </figure>
-                                    <div class="card-body text-center p-0">
-                                          <span
-                                                class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
-                                                <ins class="text-decoration-none">₹29.00</ins></span>
-                                          <h4
-                                                class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                <a class="text-decoration-none text-reset"
-                                                      href="shop/product-details-v1.html">Enriched Hand Wash</a>
-                                          </h4>
-                                          <div class="d-flex align-items-center fs-12px justify-content-center">
-                                                <div class="rating">
-                                                      <div class="empty-stars">
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star-o">
-                                                                        <use xlink:href="#star-o"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                      <div class="filled-stars" style="width: 80%">
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                            <span class="star">
-                                                                  <svg class="icon star text-primary">
-                                                                        <use xlink:href="#star"></use>
-                                                                  </svg>
-                                                            </span>
-                                                      </div>
-                                                </div><span class="reviews ms-4 pt-3 fs-14px">2947 reviews</span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-                  </div>
+                  </form>
             </div>
       </section>
       <section class="container container-xxl">
@@ -842,754 +471,213 @@
                         </div>
                         <div class="col-lg-7">
                               <div class="row gy-11">
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block" title="Enriched Duo">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-01-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100" alt="Enriched Duo"
-                                                                  width="330" height="440">
-                                                      </a>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
+                                    <?php
+                                    $query = "SELECT * FROM product ORDER BY createdate ASC limit 6";
+                                    $result = mysqli_query($conn, $query);
+                                    while ($row = $result->fetch_assoc()) {
+                                          $img = explode(",", $row["images"]);
+                                    ?>
+                                          <div class="col-md-4 col-sm-6 col-12">
+                                                <div class="card card-product grid-2 bg-transparent border-0"
+                                                      data-animate="fadeInUp">
+                                                      <figure class="card-img-top position-relative mb-7 overflow-hidden">
+                                                            <a href="product-details.php?id=<?php echo $row["id"]; ?>"
+                                                                  class="hover-zoom-in d-block" title="<?php echo $row["name"]; ?>">
+                                                                  <img src="#"
+                                                                        data-src="./assets/images/products/product-01-330x440.jpg"
+                                                                        class="img-fluid lazy-image w-100" alt="<?php echo $row["name"]; ?>"
+                                                                        width="330" height="440">
                                                             </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
-                                                      <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Enriched
-                                                                  Duo</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                            <div
+                                                                  class="position-absolute d-flex z-index-2 product-actions  vertical">
+                                                                  <?php
+                                                                  $avelable_cart = false;
+                                                                  $avelable_wishlist = false;
+                                                                  if (isset($_SESSION["userId"])) {
+                                                                        $user_id = $_SESSION["userId"];
+                                                                        $product_id = $row["id"];
+                                                                        $chek = "SELECT * FROM cart WHERE user_id=$user_id and product_id=$product_id";
+                                                                        $chek_result = mysqli_query($conn, $chek);
+                                                                        if ($chek_result->num_rows == 1) {
+                                                                              $avelable_cart = true;
+                                                                        }
+                                                                        $chek = "SELECT * FROM wishlist WHERE user_id=$user_id and product_id=$product_id";
+                                                                        $chek_result = mysqli_query($conn, $chek);
+                                                                        if ($chek_result->num_rows == 1) {
+                                                                              $avelable_wishlist = true;
+                                                                        }
+                                                                  }
+                                                                  if (!$avelable_cart) {
+                                                                  ?>
+                                                                        <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                              href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                              data-bs-title="Add To Cart">
+                                                                              <button type="submit" name="addBag"
+                                                                                    value="<?php echo $row["id"]; ?>"
+                                                                                    class="border-0 bg-transparent rounded-circle text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                                    <svg class="icon icon-shopping-bag-open-light">
+                                                                                          <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                                                    </svg>
+                                                                              </button>
+                                                                        </a>
+                                                                  <?php
+                                                                  } else {
+                                                                  ?>
+                                                                        <a class="bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                              href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                              data-bs-title="Remove To Cart"
+                                                                              style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                              <button type="submit" name="removeBag"
+                                                                                    value="<?php echo $row["id"]; ?>"
+                                                                                    style="background-color: <?php echo "#000"; ?>;  color: white !important;"
+                                                                                    class="border-0 bg-transparent rounded-circle bg-body  text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                                    <svg class="icon icon-shopping-bag-open-light">
+                                                                                          <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                                                    </svg>
+                                                                              </button>
+                                                                        </a>
+                                                                  <?php
+                                                                  }
+                                                                  ?>
+                                                                  <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view"
+                                                                        href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        data-bs-title="Quick View" data-product-id="<?php echo $row["id"]; ?>">
+                                                                        <span data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                                                              class="d-flex align-items-center justify-content-center">
+                                                                              <svg class="icon icon-eye-light">
+                                                                                    <use xlink:href="#icon-eye-light"></use>
                                                                               </svg>
                                                                         </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                                  <div class="filled-stars" style="width: 100%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
-                                                                  reviews</span>
-                                                      </div>
-                                                </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block" title="Shield Spray">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-02-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100" alt="Shield Spray"
-                                                                  width="330" height="440">
-                                                      </a>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
-                                                      <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Shield
-                                                                  Spray</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                                  <div class="filled-stars" style="width: 100%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
-                                                                  reviews</span>
-                                                      </div>
-                                                </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block" title="Vital Eye Cream">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-05-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100"
-                                                                  alt="Vital Eye Cream" width="330" height="440">
-                                                      </a>
-                                                      <div class="position-absolute product-flash z-index-2 ">
-                                                            <span
-                                                                  class="badge badge-product-flash on-sale bg-primary">-26%</span>
-                                                      </div>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
+                                                                  </a>
+                                                                  <?php
+                                                                  if (!$avelable_wishlist) {
+                                                                  ?>
+                                                                        <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist"
+                                                                              href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                              data-bs-title="Add To Wishlist"
+                                                                              style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                              <button type="submit" name="wishlist"
+                                                                                    value="<?php echo $row["id"]; ?>"
+                                                                                    class="border-0 bg-transparent bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm text-body-emphasis wishlist"
+                                                                                    style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                                    <svg class="icon icon-star-light">
+                                                                                          <use xlink:href="#icon-star-light"></use>
+                                                                                    </svg>
+                                                                              </button>
+                                                                        </a>
+                                                                  <?php
+                                                                  } else {
+                                                                  ?>
+                                                                        <a class="bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart"
+                                                                              href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                              data-bs-title="Remove To Wishlist"
+                                                                              style="background-color: <?php echo "#000"; ?>; color: white; ">
+                                                                              <button type="submit" name="wishlist"
+                                                                                    value="<?php echo $row["id"]; ?>"
+                                                                                    style="background-color: <?php echo "#000"; ?>;  color: white !important;"
+                                                                                    class="border-0 bg-transparent rounded-circle bg-body  text-light-hover rounded-circle square product-action shadow-sm add_to_cart">
+                                                                                    <svg class="icon icon-star-light">
+                                                                                          <use xlink:href="#icon-star-light"></use>
+                                                                                    </svg>
+                                                                              </button>
+                                                                        </a>
+                                                                  <?php
+                                                                  }
+                                                                  ?>
+                                                            </div>
+                                                      </figure>
+                                                      <div class="card-body text-center p-0">
                                                       <span
                                                             class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                            <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
-                                                            <ins class="text-decoration-none">₹29.00</ins></span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Vital Eye
-                                                                  Cream</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
+                                                            <del class=" text-body fw-500 me-4 fs-13px">₹<?php echo $row["product_price"]; ?></del>
+                                                            <ins class="text-decoration-none">₹<?php echo $row["product_selling_price"]; ?></ins></span>
+                                                            <h4
+                                                                  class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
+                                                                  <a class="text-decoration-none text-reset"
+                                                                        href="product-details.php?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
+                                                            </h4>
+                                                            <div
+                                                                  class="d-flex align-items-center fs-12px justify-content-center">
+                                                                  <div class="rating">
+                                                                        <div class="empty-stars">
+                                                                              <span class="star">
+                                                                                    <svg class="icon star-o">
+                                                                                          <use xlink:href="#star-o">
+                                                                                          </use>
+                                                                                    </svg>
+                                                                              </span>
+                                                                              <span class="star">
+                                                                                    <svg class="icon star-o">
+                                                                                          <use xlink:href="#star-o">
+                                                                                          </use>
+                                                                                    </svg>
+                                                                              </span>
+                                                                              <span class="star">
+                                                                                    <svg class="icon star-o">
+                                                                                          <use xlink:href="#star-o">
+                                                                                          </use>
+                                                                                    </svg>
+                                                                              </span>
+                                                                              <span class="star">
+                                                                                    <svg class="icon star-o">
+                                                                                          <use xlink:href="#star-o">
+                                                                                          </use>
+                                                                                    </svg>
+                                                                              </span>
+                                                                              <span class="star">
+                                                                                    <svg class="icon star-o">
+                                                                                          <use xlink:href="#star-o">
+                                                                                          </use>
+                                                                                    </svg>
+                                                                              </span>
+                                                                        </div>
+                                                                        <?php
+                                                                  $id = $row["id"];
+                                                                  $query_review = "SELECT COUNT(id) ,AVG(rate) FROM reviews WHERE product_id=$id";
+                                                                  $result_review = mysqli_query($conn, $query_review);
+                                                                  $res = $result_review->fetch_assoc();
+                                                                  ?>
+                                                                  <div class="filled-stars" style="width: <?php if ($res["AVG(rate)"] > 0) {
+                                                                                                                  echo $res["AVG(rate)"];
+                                                                                                            } else {
+                                                                                                                  echo 0;
+                                                                                                            }
+                                                                                                            ?>%">
                                                                         <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
                                                                               </svg>
                                                                         </span>
                                                                         <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
                                                                               </svg>
                                                                         </span>
                                                                         <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
                                                                               </svg>
                                                                         </span>
                                                                         <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
                                                                               </svg>
                                                                         </span>
                                                                         <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
+                                                                              <svg class="icon star text-primary">
+                                                                                    <use xlink:href="#star"></use>
                                                                               </svg>
                                                                         </span>
                                                                   </div>
-                                                                  <div class="filled-stars" style="width: 80%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
-                                                                  reviews</span>
-                                                      </div>
-                                                </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block" title="Supreme Moisture Mask">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-03-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100"
-                                                                  alt="Supreme Moisture Mask" width="330" height="440">
-                                                      </a>
-                                                      <div class="position-absolute product-flash z-index-2 ">
+                                                            </div>
                                                             <span
-                                                                  class="badge badge-product-flash on-sale bg-primary">-26%</span>
-                                                      </div>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
-                                                      <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
-                                                            <del class=" text-body fw-500 me-4 fs-13px">₹39.00</del>
-                                                            <ins class="text-decoration-none">₹29.00</ins></span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Supreme
-                                                                  Moisture Mask</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                                  <div class="filled-stars" style="width: 80%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
+                                                                  class="reviews ms-4 pt-3 fs-14px"><?php echo $res["COUNT(id)"]; ?>
                                                                   reviews</span>
+                                                            </div>
                                                       </div>
                                                 </div>
                                           </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block"
-                                                            title="Supreme Polishing Treatment">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-15-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100"
-                                                                  alt="Supreme Polishing Treatment" width="330"
-                                                                  height="440">
-                                                      </a>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
-                                                      <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Supreme
-                                                                  Polishing Treatment</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                                  <div class="filled-stars" style="width: 100%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
-                                                                  reviews</span>
-                                                      </div>
-                                                </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-12">
-                                          <div class="card card-product grid-2 bg-transparent border-0"
-                                                data-animate="fadeInUp">
-                                                <figure class="card-img-top position-relative mb-7 overflow-hidden">
-                                                      <a href="shop/product-details-v1.html"
-                                                            class="hover-zoom-in d-block"
-                                                            title="Scalp Moisturizing Cream">
-                                                            <img src="#"
-                                                                  data-src="./assets/images/products/product-06-330x440.jpg"
-                                                                  class="img-fluid lazy-image w-100"
-                                                                  alt="Scalp Moisturizing Cream" width="330"
-                                                                  height="440">
-                                                      </a>
-                                                      <div
-                                                            class="position-absolute d-flex z-index-2 product-actions  vertical">
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm quick-view sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Quick View">
-                                                                  <span data-bs-toggle="modal"
-                                                                        data-bs-target="#quickViewModal"
-                                                                        class="d-flex align-items-center justify-content-center">
-                                                                        <svg class="icon icon-eye-light">
-                                                                              <use xlink:href="#icon-eye-light">
-                                                                              </use>
-                                                                        </svg>
-                                                                  </span>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm wishlist sm"
-                                                                  href="#" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left"
-                                                                  data-bs-title="Add To Wishlist">
-                                                                  <svg class="icon icon-star-light">
-                                                                        <use xlink:href="#icon-star-light"></use>
-                                                                  </svg>
-                                                            </a>
-                                                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm compare sm"
-                                                                  href="shop/compare.html" data-bs-toggle="tooltip"
-                                                                  data-bs-placement="left" data-bs-title="Compare">
-                                                                  <svg class="icon icon-arrows-left-right-light">
-                                                                        <use xlink:href="#icon-arrows-left-right-light">
-                                                                        </use>
-                                                                  </svg>
-                                                            </a>
-                                                      </div><a href="#"
-                                                            class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add
-                                                            To Cart</a>
-                                                </figure>
-                                                <div class="card-body text-center p-0">
-                                                      <span
-                                                            class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">₹29.00</span>
-                                                      <h4
-                                                            class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
-                                                            <a class="text-decoration-none text-reset"
-                                                                  href="shop/product-details-v1.html">Scalp
-                                                                  Moisturizing Cream</a>
-                                                      </h4>
-                                                      <div
-                                                            class="d-flex align-items-center fs-12px justify-content-center">
-                                                            <div class="rating">
-                                                                  <div class="empty-stars">
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star-o">
-                                                                                    <use xlink:href="#star-o">
-                                                                                    </use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                                  <div class="filled-stars" style="width: 100%">
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                        <span class="star">
-                                                                              <svg class="icon star text-primary">
-                                                                                    <use xlink:href="#star"></use>
-                                                                              </svg>
-                                                                        </span>
-                                                                  </div>
-                                                            </div><span class="reviews ms-4 pt-3 fs-14px">2947
-                                                                  reviews</span>
-                                                      </div>
-                                                </div>
-                                          </div>
-                                    </div>
+                                    <?php } ?>
                               </div>
                         </div>
                   </div>
@@ -1639,7 +727,7 @@
                                                 <a class="color-inherit text-decoration-none" href="#">Summer
                                                       Collection</a>
                                           </h5>
-                                          <a href="grid-layout.php" title="Shop now"
+                                          <a href="blog.php" title="Shop now"
                                                 class="btn btn-link fw-semibold text-body-emphasis">Read more <i
                                                       class="far fa-arrow-right fs-14px ps-2 ms-1"></i></a>
                                     </div>

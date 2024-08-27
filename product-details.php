@@ -149,10 +149,10 @@ include_once "header.php";
                                     <?php
                                     $arr = explode(",", $row["images"]);
                                     foreach ($arr as $key => $value) { ?>
-                                          <a href="./assets/images/products1/<?php echo $value; ?>" data-gallery="gallery1"
-                                                data-thumb-src="./assets/images/products1/<?php echo $value; ?>"
+                                          <a href="./assets/images/products/<?php echo $value; ?>" data-gallery="gallery1"
+                                                data-thumb-src="./assets/images/products/<?php echo $value; ?>"
                                                 class=" overflow-hidden">
-                                                <img src="#" data-src="./assets/images/products1/<?php echo $value; ?>"
+                                                <img src="#" data-src="./assets/images/products/<?php echo $value; ?>"
                                                       class="h-auto lazy-image" width="540" height="720" alt>
                                           </a>
                                     <?php } ?>
@@ -162,7 +162,7 @@ include_once "header.php";
                               <div id="slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4"
                                     data-slick-options="{&#34;arrows&#34;:false,&#34;asNavFor&#34;:&#34;#slider&#34;,&#34;dots&#34;:false,&#34;focusOnSelect&#34;:true,&#34;slidesToShow&#34;:5,&#34;vertical&#34;:false}">
                                     <?php foreach ($arr as $key => $value) { ?>
-                                          <img src="#" data-src="./assets/images/products1/<?php echo $value; ?>"
+                                          <img src="#" data-src="./assets/images/products/<?php echo $value; ?>"
                                                 class="mx-3 px-0 h-auto cursor-pointer lazy-image overflow-hidden" width="75"
                                                 height="100" alt>
                                     <?php } ?>

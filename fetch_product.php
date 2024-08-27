@@ -26,8 +26,8 @@ echo '<div class="row">';
             // Main Slider
             $arr = explode(",", $row["images"]);
             foreach ($arr as $value) {
-                echo '<a href="./assets/images/products1/' . htmlspecialchars($value) . '" data-gallery="gallery1" data-thumb-src="./assets/images/products1/' . htmlspecialchars($value) . '" class="overflow-hidden">';
-                echo '<img src="./assets/images/products1/' . htmlspecialchars($value) . '" class="h-auto lazy-image" width="540" height="720" alt>';
+                echo '<a href="./assets/images/products/' . htmlspecialchars($value) . '" data-gallery="gallery1" data-thumb-src="./assets/images/products/' . htmlspecialchars($value) . '" class="overflow-hidden">';
+                echo '<img src="./assets/images/products/' . htmlspecialchars($value) . '" class="h-auto lazy-image" width="540" height="720" alt>';
                 echo '</a>';
                 break;
             }

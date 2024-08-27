@@ -79,7 +79,12 @@
       </section>
       <section class="pt-9 pt-md-16 pt-lg-18">
             <div class="container">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29750.18835855967!2d72.88060692852378!3d21.240826692209502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f4fb5c0b087%3A0xb7aabd8a90da0679!2sMota%20Varachha%2C%20Surat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1724323343082!5m2!1sen!2sin" width="1200" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29750.18835855967!2d72.88060692852378!3d21.240826692209502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f4fb5c0b087%3A0xb7aabd8a90da0679!2sMota%20Varachha%2C%20Surat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1724323343082!5m2!1sen!2sin"
+                        class="w-100 h-500px mx-auto"
+                        frameborder="0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
       </section>
       <section class="pt-15 pb-16 pt-lg-17 pb-lg-18 mx-auto" style="max-width: 750px">

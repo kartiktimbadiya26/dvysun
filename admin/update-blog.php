@@ -29,7 +29,7 @@ if (isset($_POST["save"])) {
             <script>
                   alert("call")
             </script>
-      <?php } else {
+<?php } else {
             $query = "UPDATE blog SET title = ? , description = ? WHERE id=?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ssi", $title, $blog, $id);
@@ -80,7 +80,7 @@ include_once "header.php";
                         <div class="mx-n8">
                               <div class="px-8">
                                     <section class="p-xl-8">
-                                          <form action="" method="post" class="form-border-1"
+                                          <form method="post" class="form-border-1"
                                                 enctype="multipart/form-data">
                                                 <div class="row">
                                                       <div class="col-lg-12">

@@ -23,8 +23,8 @@ ob_start();
       <meta name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Home Page 01 - Glowing - Bootstrap 5 HTML Templates</title>
-      <link rel="icon" href="assets/images/others/favicon.ico">
+      <title>Dvysun E-commerce Website</title>
+      <link rel="icon" href="assets/images/others/logo4.jpeg">
       <link rel="stylesheet" href="assets/vendors/lightgallery/css/lightgallery-bundle.min.css">
       <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css">
       <link rel="stylesheet" href="assets/vendors/animate/animate.min.css">
@@ -80,106 +80,107 @@ ob_start();
                               </div>
                               <a href="index.php" class="navbar-brand px-8 py-4 mx-auto">
                                     <h2>DVYSUN</h2>
-                                    <div
-                                          class="icons-actions d-flex justify-content-end w-xl-50 fs-28px text-body-emphasis">
-                                          <div class="px-xl-5 d-inline-block">
-                                                <a class="lh-1 color-inherit text-decoration-none" href="#"
-                                                      data-bs-toggle="offcanvas" data-bs-target="#searchModal"
-                                                      aria-controls="searchModal" aria-expanded="false">
-                                                      <svg class="icon icon-magnifying-glass-light">
-                                                            <use xlink:href="#icon-magnifying-glass-light"></use>
-                                                      </svg>
-                                                </a>
-                                          </div>
-                                          <?php if (!$user) { ?>
-                                                <div class="px-5 d-none d-xl-inline-block">
-                                                      <a class="lh-1 color-inherit text-decoration-none" href="#"
-                                                            data-bs-toggle="modal" data-bs-target="#signInModal">
-                                                            <svg class="icon icon-user-light">
-                                                                  <use xlink:href="#icon-user-light"></use>
-                                                            </svg>
-                                                      </a>
-                                                </div>
-                                          <?php } else { ?>
-                                                <div class="px-5 d-none d-xl-inline-block">
-                                                      <a class="lh-1 color-inherit text-decoration-none" href="logout.php">
-                                                            <svg class="icon icon-logout">
-                                                                  <use xlink:href="#icon-logout"></use>
-                                                            </svg>
-                                                      </a>
-                                                </div>
-                                          <?php } ?>
-                                          <div class="px-5 d-none d-xl-inline-block">
-                                                <a class="position-relative lh-1 color-inherit text-decoration-none"
-                                                      href="wishlist.php">
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-star-light"></use>
-                                                      </svg>
-                                                      <?php if ($user) {
-                                                            $query_res = "SELECT COUNT(id) FROM wishlist WHERE user_id=$user_id";
-                                                            $count_res = mysqli_query($conn, $query_res);
-                                                            $res = $count_res->fetch_assoc();
-                                                            ?>
-                                                            <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square"
-                                                                  style="--square-size: 18px"><?php echo $res["COUNT(id)"]; ?></span>
-                                                      <?php } ?>
-                                                </a>
-                                          </div>
-                                          <div class="px-5 d-none d-xl-inline-block">
-                                                <a class="position-relative lh-1 color-inherit text-decoration-none"
-                                                      href="cart.php" >
-                                                      <svg class="icon icon-star-light">
-                                                            <use xlink:href="#icon-shopping-bag-open-light"></use>
-                                                      </svg>
-                                                      <?php if ($user) {
-                                                            $query_res = "SELECT COUNT(id) FROM cart WHERE user_id=$user_id";
-                                                            $count_res = mysqli_query($conn, $query_res);
-                                                            $res = $count_res->fetch_assoc();
-                                                            ?>
-                                                            <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square"
-                                                                  style="--square-size: 18px"><?php echo $res["COUNT(id)"]; ?></span>
-                                                      <?php } ?>
-                                                </a>
-                                          </div>
-                                          <div class="color-modes position-relative ps-5">
-                                                <a class="bd-theme btn btn-link nav-link dropdown-toggle d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle"
-                                                      href="#" aria-expanded="true" data-bs-toggle="dropdown"
-                                                      data-bs-display="static" aria-label="Toggle theme (light)">
-                                                      <svg class="bi my-1 theme-icon-active">
-                                                            <use href="#sun-fill"></use>
-                                                      </svg>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end fs-14px"
-                                                      data-bs-popper="static">
-                                                      <li>
-                                                            <button type="button"
-                                                                  class="dropdown-item d-flex align-items-center active"
-                                                                  data-bs-theme-value="light" aria-pressed="true">
-                                                                  <svg class="bi me-4 opacity-50 theme-icon">
-                                                                        <use href="#sun-fill"></use>
-                                                                  </svg>
-                                                                  Light
-                                                                  <svg class="bi ms-auto d-none">
-                                                                        <use href="#check2"></use>
-                                                                  </svg>
-                                                            </button>
-                                                      </li>
-                                                      <li>
-                                                            <button type="button"
-                                                                  class="dropdown-item d-flex align-items-center"
-                                                                  data-bs-theme-value="dark" aria-pressed="false">
-                                                                  <svg class="bi me-4 opacity-50 theme-icon">
-                                                                        <use href="#moon-stars-fill"></use>
-                                                                  </svg>
-                                                                  Dark
-                                                                  <svg class="bi ms-auto d-none">
-                                                                        <use href="#check2"></use>
-                                                                  </svg>
-                                                            </button>
-                                                      </li>
-                                                </ul>
-                                          </div>
+                              </a>
+                              <div
+                                    class="icons-actions d-flex justify-content-end w-xl-50 fs-28px text-body-emphasis">
+                                    <div class="px-xl-5 d-inline-block">
+                                          <a class="lh-1 color-inherit text-decoration-none" href="#"
+                                                data-bs-toggle="offcanvas" data-bs-target="#searchModal"
+                                                aria-controls="searchModal" aria-expanded="false">
+                                                <svg class="icon icon-magnifying-glass-light">
+                                                      <use xlink:href="#icon-magnifying-glass-light"></use>
+                                                </svg>
+                                          </a>
                                     </div>
+                                    <?php if (!$user) { ?>
+                                          <div class="px-5 d-none d-xl-inline-block">
+                                                <a class="lh-1 color-inherit text-decoration-none" href="#"
+                                                      data-bs-toggle="modal" data-bs-target="#signInModal">
+                                                      <svg class="icon icon-user-light">
+                                                            <use xlink:href="#icon-user-light"></use>
+                                                      </svg>
+                                                </a>
+                                          </div>
+                                    <?php } else { ?>
+                                          <div class="px-5 d-none d-xl-inline-block">
+                                                <a class="lh-1 color-inherit text-decoration-none" href="logout.php">
+                                                      <svg class="icon icon-logout">
+                                                            <use xlink:href="#icon-logout"></use>
+                                                      </svg>
+                                                </a>
+                                          </div>
+                                    <?php } ?>
+                                    <div class="px-5 d-none d-xl-inline-block">
+                                          <a class="position-relative lh-1 color-inherit text-decoration-none"
+                                                href="wishlist.php">
+                                                <svg class="icon icon-star-light">
+                                                      <use xlink:href="#icon-star-light"></use>
+                                                </svg>
+                                                <?php if ($user) {
+                                                      $query_res = "SELECT COUNT(id) FROM wishlist WHERE user_id=$user_id";
+                                                      $count_res = mysqli_query($conn, $query_res);
+                                                      $res = $count_res->fetch_assoc();
+                                                ?>
+                                                      <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square"
+                                                            style="--square-size: 18px"><?php echo $res["COUNT(id)"]; ?></span>
+                                                <?php } ?>
+                                          </a>
+                                    </div>
+                                    <div class="px-5 d-none d-xl-inline-block">
+                                          <a class="position-relative lh-1 color-inherit text-decoration-none"
+                                                href="cart.php">
+                                                <svg class="icon icon-star-light">
+                                                      <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                                </svg>
+                                                <?php if ($user) {
+                                                      $query_res = "SELECT COUNT(id) FROM cart WHERE user_id=$user_id";
+                                                      $count_res = mysqli_query($conn, $query_res);
+                                                      $res = $count_res->fetch_assoc();
+                                                ?>
+                                                      <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square"
+                                                            style="--square-size: 18px"><?php echo $res["COUNT(id)"]; ?></span>
+                                                <?php } ?>
+                                          </a>
+                                    </div>
+                                    <div class="color-modes position-relative">
+                                          <a class="bd-theme btn btn-link nav-link dropdown-toggle d-inline-flex align-items-center justify-content-center text-primary p-0 position-relative rounded-circle"
+                                                href="#" aria-expanded="true" data-bs-toggle="dropdown"
+                                                data-bs-display="static" aria-label="Toggle theme (light)">
+                                                <svg class="bi my-1 theme-icon-active">
+                                                      <use href="#sun-fill"></use>
+                                                </svg>
+                                          </a>
+                                          <ul class="dropdown-menu dropdown-menu-end fs-14px"
+                                                data-bs-popper="static">
+                                                <li>
+                                                      <button type="button"
+                                                            class="dropdown-item d-flex align-items-center active"
+                                                            data-bs-theme-value="light" aria-pressed="true">
+                                                            <svg class="bi me-4 opacity-50 theme-icon">
+                                                                  <use href="#sun-fill"></use>
+                                                            </svg>
+                                                            Light
+                                                            <svg class="bi ms-auto d-none">
+                                                                  <use href="#check2"></use>
+                                                            </svg>
+                                                      </button>
+                                                </li>
+                                                <li>
+                                                      <button type="button"
+                                                            class="dropdown-item d-flex align-items-center"
+                                                            data-bs-theme-value="dark" aria-pressed="false">
+                                                            <svg class="bi me-4 opacity-50 theme-icon">
+                                                                  <use href="#moon-stars-fill"></use>
+                                                            </svg>
+                                                            Dark
+                                                            <svg class="bi ms-auto d-none">
+                                                                  <use href="#check2"></use>
+                                                            </svg>
+                                                      </button>
+                                                </li>
+                                          </ul>
+                                    </div>
+                              </div>
                         </div>
                   </div>
             </div>

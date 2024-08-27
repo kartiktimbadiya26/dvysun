@@ -8,8 +8,8 @@
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title></title>
-	<link rel="icon" href="../assets/images/others/favicon.ico">
+	<title>Admin Dvysun E-commerce Website</title>
+	<link rel="icon" href="../assets/images/others/logo4.jpeg">
 	<link rel="stylesheet" href="../assets/vendors/lightgallery/css/lightgallery-bundle.min.css">
 	<link rel="stylesheet" href="../assets/vendors/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="../assets/vendors/animate/animate.min.css">
@@ -81,22 +81,6 @@
 											</li>
 										</ul>
 									</div>
-									<div
-										class="dropdown no-caret py-4 px-3 d-flex align-items-center notice me-6">
-										<a href="#"
-											class="dropdown-toggle text-body-emphasis fs-5 fw-500 lh-1 position-relative"
-											data-bs-toggle="dropdown">
-											<i class="far fa-bell"></i>
-											<span
-												class="badge bg-primary rounded-pill position-absolute fw-bold fs-13px bottom-100 start-100 translate-middle-x">1</span>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<a class="dropdown-item" href="#">Something else
-												here</a>
-										</div>
-									</div>
 								</div>
 								<button class="navbar-toggler border-0 px-0" type="button"
 									data-bs-toggle="collapse" data-bs-target="#primaryMenuSidebar"
@@ -108,19 +92,6 @@
 						</div>
 						<div class="collapse navbar-collapse bg-body position-relative z-index-5"
 							id="primaryMenuSidebar">
-							<!-- <form class="d-block d-xl-none pt-8 px-6">
-								<div class="input-group position-relative bg-body-tertiary">
-									<input type="text"
-										class="form-control border-0 bg-transparent pl-4 shadow-none"
-										placeholder="Search Item">
-									<div
-										class="input-group-append fs-14px px-6 border-start border-2x ">
-										<button class="bg-transparent border-0 outline-none py-5">
-											<i class="far fa-search"></i>
-										</button>
-									</div>
-								</div>
-							</form> -->
 							<ul class="list-group list-group-flush list-group-no-border w-100 p-6">
 								<li class="list-group-item px-0 py-0 sidebar-item mb-3 border-0">
 									<a href="dashboard.php"
@@ -165,42 +136,6 @@
 										</ul>
 									</div>
 								</li>
-								<!-- <li
-									class="list-group-item px-0 py-0 sidebar-item mb-3 has-children border-0">
-									<a href="#order"
-										class="text-heading text-decoration-none lh-1 d-flex sidebar-link align-items-center py-5 px-6 position-relative"
-										data-bs-toggle="collapse" aria-expanded="false"
-										title="Order">
-										<span
-											class="sidebar-item-icon d-inline-block w-40px text-muted">
-											<i class="fas fa-shopping-cart"></i>
-										</span>
-										<span
-											class="sidebar-item-text fs-14px fw-semibold">Order</span>
-										<span
-											class="position-absolute top-50 end-5 translate-middle-y"><i
-												class="far fa-angle-down"></i></span>
-									</a>
-									<div class="collapse menu-collapse" id="order">
-										<ul class="sub-menu list-unstyled">
-											<li class="sidebar-item">
-												<a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-													href="order-list.html"
-													title="Order List 1">Order List 1</a>
-											</li>
-											<li class="sidebar-item">
-												<a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-													href="order-list-2.html"
-													title="Order List 2">Order List 2</a>
-											</li>
-											<li class="sidebar-item">
-												<a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-													href="order-detail.html"
-													title="Order detail">Order detail</a>
-											</li>
-										</ul>
-									</div>
-								</li> -->
 								<li
 									class="list-group-item px-0 py-0 sidebar-item mb-3 has-children border-0">
 									<a href="#category"
@@ -318,62 +253,6 @@
 											class="sidebar-item-text fs-14px fw-semibold">Reivews</span>
 									</a>
 								</li>
-								<!-- <li class="list-group-item px-0 py-0 sidebar-item mb-3 border-0">
-									<a href="brands.html"
-										class="text-heading text-decoration-none lh-1 sidebar-link py-5 px-6 d-flex align-items-center"
-										title="Brand">
-										<span
-											class="sidebar-item-icon w-40px d-inline-block text-muted">
-											<i class="fas fa-certificate"></i>
-										</span>
-										<span
-											class="sidebar-item-text fs-14px fw-semibold">Brand</span>
-									</a>
-								</li> -->
-								<!-- <li
-									class="list-group-item px-0 py-0 sidebar-item mb-3 has-children border-0">
-									<a href="#setting"
-										class="text-heading text-decoration-none lh-1 d-flex sidebar-link align-items-center py-5 px-6 position-relative"
-										data-bs-toggle="collapse" aria-expanded="false"
-										title="Setting">
-										<span
-											class="sidebar-item-icon d-inline-block w-40px text-muted">
-											<i class="fas fa-cog"></i>
-										</span>
-										<span
-											class="sidebar-item-text fs-14px fw-semibold">Setting</span>
-										<span
-											class="position-absolute top-50 end-5 translate-middle-y"><i
-												class="far fa-angle-down"></i></span>
-									</a>
-									<div class="collapse menu-collapse" id="setting">
-										<ul class="sub-menu list-unstyled">
-											<li class="sidebar-item">
-												<a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-													href="profile-settings.html"
-													title="Profile settings">Profile
-													settings</a>
-											</li>
-											<li class="sidebar-item">
-												<a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-													href="site-settings.html"
-													title="Site settings">Site settings</a>
-											</li>
-										</ul>
-									</div>
-								</li> -->
-								<!-- <li class="list-group-item px-0 py-0 sidebar-item mb-3 border-0">
-									<a href="starter-page.html"
-										class="text-heading text-decoration-none lh-1 sidebar-link py-5 px-6 d-flex align-items-center"
-										title="Starter page">
-										<span
-											class="sidebar-item-icon w-40px d-inline-block text-muted">
-											<i class="fas fa-tag"></i>
-										</span>
-										<span class="sidebar-item-text fs-14px fw-semibold">Starter
-											page</span>
-									</a>
-								</li> -->
 							</ul>
 						</div>
 					</div>
