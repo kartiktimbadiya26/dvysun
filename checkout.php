@@ -228,7 +228,6 @@ include_once "header.php";
                                                 class="mb-5 fs-13px letter-spacing-01 fw-semibold text-uppercase" for="country">Country</label>
                                           <div class="dropdown bg-body-secondary rounded">
                                                 <select name="country" id="country" class="form-select dropdown-toggle d-flex justify-content-between align-items-center text-decoration-none text-secondary p-5 position-relative d-block">
-                                                      <!-- <option value="" selected disabled>-- Select Your Country --</option> -->
                                                       <option value="india" selected>India</option>
                                                 </select>
                                           </div>

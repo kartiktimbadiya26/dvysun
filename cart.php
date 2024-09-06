@@ -219,28 +219,6 @@ include_once "header.php";
                   <div class="row pt-8 pt-lg-11 pb-16 pb-lg-18">
                         <div class="col-lg-4 pt-lg-0 pt-11">
                               <form method="post">
-                                    <!-- <div class="card border-0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,0.1)">
-                                          <div class="card-body px-9 pt-6">
-                                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                                      <span>Subtotal:</span>
-                                                      <span class="d-block ml-auto text-body-emphasis fw-bold"><?php echo $total_price; ?></span>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                      <span>Shipping:</span>
-                                                      <span class="d-block ml-auto text-body-emphasis fw-bold">$0</span>
-                                                </div>
-                                          </div>
-                                          <div class="card-footer bg-transparent px-0 pt-5 pb-7 mx-9">
-                                                <div class="d-flex align-items-center justify-content-between fw-bold mb-7">
-                                                      <span class="text-secondary text-body-emphasis">Total pricre:</span>
-                                                      <span
-                                                            class="d-block ml-auto text-body-emphasis fs-4 fw-bold"><?php echo $total_price; ?></span>
-                                                </div>
-                                                <button type="submit" name="order"
-                                                      class="btn w-100 btn-dark btn-hover-bg-primary btn-hover-border-primary"
-                                                      title="Check Out">Check Out</button>
-                                          </div>
-                                    </div> -->
                                     <div class="card border-0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,0.1)">
                                           <div class="card-body px-9 pt-6">
                                                 <div class="d-flex align-items-center justify-content-between mb-5">
@@ -257,7 +235,11 @@ include_once "header.php";
                                                       <span class="text-secondary text-body-emphasis">Total Price:</span>
                                                       <span id="total-price" class="d-block ml-auto text-body-emphasis fs-4 fw-bold"><?php echo $total_price; ?></span>
                                                 </div>
-                                                <button type="submit" name="order" class="btn w-100 btn-dark btn-hover-bg-primary btn-hover-border-primary" title="Check Out">Check Out</button>
+                                                <button type="submit" name="order" class="btn w-100 btn-dark btn-hover-bg-primary btn-hover-border-primary" disabled="<?php if ($total_price > 0) {
+                                                                                                                                                                              echo false;
+                                                                                                                                                                        }else{
+                                                                                                                                                                              echo true;
+                                                                                                                                                                        } ?>" title="Check Out">Check Out</button>
                                           </div>
                                     </div>
 

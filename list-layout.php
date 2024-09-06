@@ -89,12 +89,18 @@ include_once "header.php";
       </section>
       <section class="container container-xxl">
             <div class="tool-bar mb-11 align-items-center justify-content-between d-lg-flex">
-                  <div class="tool-bar-left mb-6 mb-lg-0 fs-18px">We found <span class="text-body-emphasis fw-semibold"><?php
-                                                                                                                        $query_count = "SELECT COUNT(id) FROM product";
-                                                                                                                        $result_count = mysqli_query($conn, $query_count);
-                                                                                                                        $result_count_data = $result_count->fetch_assoc();
-                                                                                                                        echo $result_count_data["COUNT(id)"];
-                                                                                                                        ?></span> products available for you</div>
+                  <div class="tool-bar-left mb-6 mb-lg-0 fs-18px">We found <span class="text-body-emphasis fw-semibold">
+                              <?php
+                              echo $result->num_rows; ?>
+                        </span>
+                        Products on
+                        <span class="text-body-emphasis fw-semibold">
+                              <?php $query_count = "SELECT COUNT(id) FROM product";
+                              $result_count = mysqli_query($conn, $query_count);
+                              $result_count_data = $result_count->fetch_assoc();
+                              echo " " . $result_count_data["COUNT(id)"] . " ";
+                              ?></span> products available for you
+                  </div>
                   <div class="tool-bar-right align-items-center d-flex ">
                         <ul class="list-unstyled d-flex align-items-center list-inline me-lg-7 me-0 mb-0 ">
                               <li class="list-inline-item me-7">

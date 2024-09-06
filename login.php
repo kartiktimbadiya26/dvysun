@@ -2,6 +2,11 @@
 include_once "database/db.php";
 
 include_once "header.php";
+
+if($_SESSION["user"]!=false){
+      header("location:index.php");
+}
+print_r($_SESSION["user"]);
 ?>
 
 <main id="content" class="wrapper layout-page">

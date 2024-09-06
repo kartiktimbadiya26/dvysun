@@ -95,11 +95,11 @@ include_once "header.php";
             <div class="tool-bar mb-11 align-items-center justify-content-between d-lg-flex">
                   <div class="tool-bar-left mb-6 mb-lg-0 fs-18px">We found <span class="text-body-emphasis fw-semibold">
                               <?php
-                              $query_count = "SELECT COUNT(id) FROM product";
-                              if (isset($_GET["search"])) {
-                                    $se = $_GET["search"];
-                                    $query_count = "SELECT COUNT(id) FROM product WHERE name LIKE '%" . $se . "%'";
-                              }
+                              echo $result->num_rows; ?>
+                                    </span>
+                                    Products on
+                              <span class="text-body-emphasis fw-semibold">
+                              <?php $query_count = "SELECT COUNT(id) FROM product";
                               $result_count = mysqli_query($conn, $query_count);
                               $result_count_data = $result_count->fetch_assoc();
                               echo $result_count_data["COUNT(id)"];
