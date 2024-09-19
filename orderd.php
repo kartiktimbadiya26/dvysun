@@ -6,6 +6,7 @@ include_once "database/db.php";
 if (!$user) {
       header("location:login.php");
 }
+$order_id = $_SESSION["order_details_id"];
 
 $sql = "UPDATE order_details SET status='Accepted'  WHERE id=$order_id";
 $res = mysqli_query($conn, $sql);

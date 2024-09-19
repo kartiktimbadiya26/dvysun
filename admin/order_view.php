@@ -11,7 +11,6 @@ $query = "SELECT * FROM order_details WHERE id=$id";
 $result = mysqli_query($conn, $query);
 $row = $result->fetch_assoc();
 include_once "header.php";
-print_r($row);
 ?>
 <main id="content" class="bg-body-tertiary-01 d-flex flex-column main-content">
       <div class="dashboard-page-content">

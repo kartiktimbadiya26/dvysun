@@ -3,11 +3,11 @@
 include_once "../database/db.php";
 include_once "chek_login.php";
 
-// if (isset($_POST["delete"])) {
-//       $id = $_POST["delete"];
-//       $query = "DELETE FROM reviews WHERE id=$id";
-//       $result = mysqli_query($conn, $query);
-// }
+if (isset($_POST["complete"])) {
+      $id = $_POST["complete"];
+      $query = "UPDATE order_details SET status='Complete' WHERE id=$id";
+      $result = mysqli_query($conn, $query);
+}
 
 include_once "header.php";
 
@@ -91,13 +91,13 @@ include_once "header.php";
                                                                   <form method="post">
                                                                         <a href="order_view.php?id=<?php echo $row["id"]; ?>"
                                                                               class="btn btn-primary py-4 px-5 btn-xs fs-13px me-4">
-                                                                              <i class="far fa-pen me-2">
-                                                                              </i> Edit
+                                                                              <i class="fa-regular fa-eye  me-2"></i>
+                                                                              View
                                                                         </a>
                                                                         <button
-                                                                              class="btn btn-outline-primary btn-hover-bg-danger btn-hover-border-danger btn-hover-text-light py-4 px-5 fs-13px btn-xs me-4"
-                                                                              name="delete" value="<?php echo $row["id"]; ?>">
-                                                                              <i class="far fa-trash me-2"></i> Delete
+                                                                              class="btn btn-primary py-4 px-5 btn-xs fs-13px me-4"
+                                                                              name="complete" value="<?php echo $row["id"]; ?>">
+                                                                              <i class="far fa-trash me-2"></i> Complete
                                                                         </button>
                                                                   </form>
                                                             </div>

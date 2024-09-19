@@ -24,11 +24,13 @@ if (empty($_POST['razorpay_payment_id']) === false) {
         $order_id = $_SESSION["order_details_id"];
         $payment_id = $_POST['razorpay_payment_id'];
         $amount = $_SESSION["order_details_amount"];
-        $sql = "UPDATE order_payments SET payment_status='Completed', transaction_id='$payment_id', amount_paid='$amount' WHERE order_id=$order_id";
+        $t = time();
+        $time = date("Y-m-d", $t);
+        $sql = "UPDATE order_payments SET payment_status='Completed', transaction_id='$payment_id', amount_paid='$amount', payment_date='$time' WHERE order_id=$order_id";
         $res = mysqli_query($conn, $sql);
         $sql = "UPDATE order_details SET payment=1 WHERE id=$order_id";
         $res = mysqli_query($conn, $sql);
-        header("location:verify.php");
+        header("location: orderd.php");
     } catch (Exception $e) {
         $success = false;
         $error = 'Razorpay Error: ' . $e->getMessage();

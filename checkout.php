@@ -71,25 +71,52 @@ o.user_id = $user_id";
       }
       $jsonOrderSummary = json_encode($orderSummaryArray, JSON_PRETTY_PRINT);
       $stmt = "";
-      if ($couponCode !== "") {
+      $after_coupen = $to; // Default value if no coupon is applied
+
+      // Check if a coupon code is provided
+      if (!empty($couponCode)) {
+            // Prepare and execute coupon query
             $stmt = $conn->prepare("SELECT * FROM coupons WHERE code = ? AND start_date <= CURDATE() AND expiration_date >= CURDATE()");
             $stmt->bind_param("s", $couponCode);
             $stmt->execute();
             $coupon = $stmt->get_result()->fetch_assoc();
             $stmt->close();
+
+            // Check if the coupon is valid
             if (!$coupon) {
                   header("Location: checkout.php?error=Invalid or expired coupon code");
                   exit();
-            } else {
-                  $after_coupen = $to - (($to * $coupon["discount_percentage"]) / 100);
-                  $stmt = $conn->prepare("INSERT INTO order_details (first_name, last_name, street_address, apt, city, state, zip, country, email, phone, coupon_code,total,totalAfterCoupen, order_details,user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                  $stmt->bind_param("ssssssssssssssi", $firstName, $lastName, $streetAddress, $apt, $city, $state, $zip, $country, $email, $phone, $couponCode, $to, $after_coupen, $jsonOrderSummary, $user_id);
             }
-      } else {
-            $stmt = $conn->prepare("INSERT INTO order_details (first_name, last_name, street_address, apt, city, state, zip, country, email, phone,total,totalAfterCoupen ,order_details,user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssssssssi", $firstName, $lastName, $streetAddress, $apt, $city, $state, $zip, $country, $email, $phone, $to, $to, $$jsonOrderSummary, $user_id);
+
+            // Calculate the total after applying the coupon discount
+            $after_coupen = $to - (($to * $coupon["discount_percentage"]) / 100);
       }
 
+      // Prepare the insert query for order details
+      $query = "INSERT INTO order_details (first_name, last_name, street_address, apt, city, state, zip, country, email, phone, coupon_code, total, totalAfterCoupen, order_details, user_id) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param(
+            "ssssssssssssssi",
+            $firstName,
+            $lastName,
+            $streetAddress,
+            $apt,
+            $city,
+            $state,
+            $zip,
+            $country,
+            $email,
+            $phone,
+            $couponCode,
+            $to,
+            $after_coupen,
+            $jsonOrderSummary,
+            $user_id
+      );
+
+      // Execute the statement
       $stmt->execute();
       $stmt->close();
 

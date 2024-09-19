@@ -235,11 +235,10 @@ include_once "header.php";
                                                       <span class="text-secondary text-body-emphasis">Total Price:</span>
                                                       <span id="total-price" class="d-block ml-auto text-body-emphasis fs-4 fw-bold"><?php echo $total_price; ?></span>
                                                 </div>
-                                                <button type="submit" name="order" class="btn w-100 btn-dark btn-hover-bg-primary btn-hover-border-primary" disabled="<?php if ($total_price > 0) {
-                                                                                                                                                                              echo false;
-                                                                                                                                                                        }else{
-                                                                                                                                                                              echo true;
-                                                                                                                                                                        } ?>" title="Check Out">Check Out</button>
+                                                <button type="submit" name="order" class="btn w-100 btn-dark btn-hover-bg-primary btn-hover-border-primary"
+                                                      <?php echo intval($total_price) <= 0 ? 'disabled' : ''; ?> title="Check Out">
+                                                      Check Out
+                                                </button>
                                           </div>
                                     </div>
 
